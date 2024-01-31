@@ -1,0 +1,34 @@
+descriptor-schema-version: "2.15"
+info:
+  name: vehicle-obd2
+  version: "01.05"
+app:
+  cpuarch: aarch64 
+  env:
+    PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+  resources:
+    cpu: "250"
+    memory: "384"
+    disk: "200"
+    canbus: yes
+    network:
+        - 
+          interface-name: eth0
+    devices:
+        -
+          label: IR_GPS
+          type: serial
+          usage: "GPS"
+    profile: custom
+  startup:
+    rootfs: rootfs.tar
+    runtime_options:
+      --hostname keholcom.local
+    target:
+    - /bin/sh
+    - -c
+    - /startup.sh
+#  child:
+#    manage-child: True
+#    reserve-disk: 10
+  type: docker
